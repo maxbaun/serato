@@ -1,0 +1,8 @@
+{
+  "extends": ["xo"],
+  "rules": {
+    "indent": ["error", 2],
+    "camelcase": "off",
+    "new-cap": "off"
+  }
+}
