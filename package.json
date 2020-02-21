@@ -11,12 +11,20 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5",
+    "@babel/preset-react": "^7.0.0",
+    "electron": "^5.0.6",
     "eslint": "^6.0.1",
     "eslint-config-xo": "^0.26.0"
   },
   "dependencies": {
+    "@babel/polyfill": "^7.4.4",
     "audiobuffer-to-wav": "^1.0.0",
     "fs": "0.0.1-security",
+    "node-id3": "^0.1.11",
+    "node-lame": "^1.2.0",
     "path": "^0.12.7",
     "path-type": "^4.0.0",
     "web-audio-api": "^0.2.2"
