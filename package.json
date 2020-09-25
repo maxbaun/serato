@@ -15,7 +15,7 @@
     "@babel/core": "^7.4.5",
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
-    "electron": "^5.0.6",
+    "electron": "^7.2.4",
     "eslint": "^6.0.1",
     "eslint-config-xo": "^0.26.0"
   },
