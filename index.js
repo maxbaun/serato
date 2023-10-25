@@ -17,16 +17,19 @@ const otrk = Buffer.from([0x70, 0x74, 0x72, 0x6b]);
 const ptrk = Buffer.from([0x70, 0x74, 0x72, 0x6b]);
 const orvc = Buffer.from('orvc');
 
+// 10.29.23 - Lauren & David bu
+
 const mp3 = false;
 const newExt = mp3 ? 'mp3' : 'wav';
-const crateName = '9.27.20 - Liz & Leo';
+const crateName = '10.29.23 - Lauren & David bu';
+const DRIVE_LETTER = 'G';
 
 let destRoot = null;
 let crateFile = null;
 let crateStr = null;
 
 if (process.platform === 'win32') {
-  crateStr = `E:\\_Serato_\\Subcrates\\${crateName}.crate`;
+  crateStr = `${DRIVE_LETTER}:\\_Serato_\\Subcrates\\${crateName}.crate`;
   crateFile = fs.readFileSync(crateStr);
   const crateParts = crateStr.split('\\');
   const destFolder = crateParts[crateParts.length - 1].split('.crate')[0];
@@ -50,6 +53,14 @@ let songs = [];
 while (true) {
   // Get song name
   let song = crateFile.slice(pointer, songEnd).swap16().toString('utf16le');
+
+  const sontParts = song.split('.mp3');
+
+  if (sontParts[1]) {
+    song = sontParts[0] + '.mp3';
+  }
+
+  song = path.normalize(song);
 
   songs.push(song);
   // Advance to start of next song
@@ -125,7 +136,14 @@ songs.forEach((song, index) => {
 function getSongName(song, index, title, artist) {
   const songName = song.split('/').pop().split('.').slice(0, 1);
   const prettyIndex = index + 1 < 10 ? `0${index + 1}` : index + 1;
-  const newName = `${destRoot}/${prettyIndex}_${title.replace(/[^\w\s]/gi, '')}${artist ? '-' + artist : ''}.${newExt}`;
+
+  if (!title) {
+    return `${destRoot}/${prettyIndex}.${newExt}`;
+  }
+
+  const newName = `${destRoot}/${prettyIndex}_${title.replace(/[^\w\s]/gi, '').replace(/[^A-Z0-9]+/gi, '_')}${
+    artist ? '-' + artist.replace(/[^A-Z0-9]+/gi, '_') : ''
+  }.${newExt}`;
 
   return newName;
 }
